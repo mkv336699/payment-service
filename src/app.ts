@@ -1,12 +1,13 @@
 import express from 'express'
-import { initialiZeRabbitMQ } from './service/rabbitmq-service.js'
+import routes from './routes/index.js'
+import { initializeRabbitMQ } from './services/rabbitmq.js'
+import { config } from './config/env.js'
 
 const app = express()
 
-app.get("/", (req, res) => {
-    res.json({ "success": true, "message": "Payment service is healthy and running" })
-})
+app.use(express.json())
+app.use('/', routes)
 
-initialiZeRabbitMQ()
+initializeRabbitMQ()
 
-app.listen(3001, () => console.log("Payment service started at port 3001"))
+app.listen(config.port, () => console.log(`Payment service started at port ${config.port}`))

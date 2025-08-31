@@ -1,9 +1,10 @@
 import { Router } from 'express'
-import healthRoutes from './health.routes.js'
 
 const router = Router()
 
-router.use('/', healthRoutes)
+router.use('/', (req, res) => {  
+    res.json({ success: true, message: 'Payment service is healthy and running' })
+})
 
 export default router
 
